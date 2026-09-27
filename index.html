@@ -2,113 +2,422 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0b0d12">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0f">
 <title>我的影视库</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b0d12;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{position:sticky;top:0;z-index:10;background:rgba(11,13,18,.94);backdrop-filter:blur(12px);padding:16px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-size:22px;font-weight:800}
-.search{margin-top:14px;width:100%;border:1px solid #252a35;background:#171a22;color:#fff;border-radius:12px;padding:13px 15px;font-size:15px;outline:none}
-nav{display:flex;gap:8px;overflow:auto;padding:14px 16px 4px}
-nav button{white-space:nowrap;border:0;border-radius:20px;background:#191d26;color:#aaa;padding:9px 15px}
-nav button.active{background:#fff;color:#111}
-main{padding:12px 16px 90px}
-h2{font-size:19px;margin:20px 0 13px}
-.hero{height:220px;border-radius:18px;padding:20px;display:flex;align-items:end;background:linear-gradient(0deg,rgba(0,0,0,.85),rgba(0,0,0,.1)),linear-gradient(135deg,#343b55,#151821);box-shadow:0 8px 30px rgba(0,0,0,.3)}
-.hero h1{margin:0 0 7px;font-size:27px}
-.hero p{margin:0;color:#bbb;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:#151820;border-radius:14px;overflow:hidden}
-.poster{aspect-ratio:2/3;background:linear-gradient(145deg,#353b4c,#191c25);display:flex;align-items:center;justify-content:center;color:#777;font-size:34px}
-.info{padding:11px}
-.title{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta{color:#8e94a3;font-size:12px;margin-top:5px}
-.play{display:block;margin-top:9px;width:100%;border:0;border-radius:9px;padding:8px;background:#fff;color:#111;font-weight:700}
-.empty{padding:40px 15px;text-align:center;color:#777;display:none}
-footer{position:fixed;bottom:0;left:0;right:0;background:rgba(14,16,22,.96);border-top:1px solid #222631;display:flex;justify-content:space-around;padding:11px 0 calc(11px + env(safe-area-inset-bottom));z-index:20}
-footer div{text-align:center;color:#858b99;font-size:11px}
-footer .on{color:#fff}
-.icon{font-size:20px;display:block;margin-bottom:2px}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:#0b0b0f;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(11,11,15,.95);
+  backdrop-filter:blur(12px);
+  padding:16px;
+  border-bottom:1px solid #24242c;
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#e50914;
+}
+
+.search{
+  width:100%;
+  background:#19191f;
+  border:1px solid #30303a;
+  border-radius:12px;
+  padding:12px 14px;
+  color:#fff;
+  font-size:15px;
+  outline:none;
+}
+
+.search:focus{
+  border-color:#e50914;
+}
+
+nav{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  margin-top:14px;
+}
+
+nav button{
+  white-space:nowrap;
+  border:0;
+  background:#19191f;
+  color:#aaa;
+  padding:8px 15px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+nav button.active{
+  background:#e50914;
+  color:#fff;
+}
+
+main{
+  padding:20px 16px 50px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1d1d25,#101014);
+  border-radius:18px;
+  padding:24px 20px;
+  margin-bottom:26px;
+  border:1px solid #292932;
+}
+
+.hero small{
+  color:#e50914;
+  font-weight:700;
+}
+
+.hero h1{
+  font-size:27px;
+  margin:8px 0;
+}
+
+.hero p{
+  color:#aaa;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.section-title h2{
+  font-size:20px;
+}
+
+.section-title span{
+  color:#777;
+  font-size:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.card{
+  background:#15151b;
+  border-radius:13px;
+  overflow:hidden;
+  border:1px solid #24242c;
+  transition:.2s;
+}
+
+.card:active{
+  transform:scale(.97);
+}
+
+.poster{
+  width:100%;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  background:#222;
+  display:block;
+}
+
+.info{
+  padding:11px;
+}
+
+.title{
+  font-size:15px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.meta{
+  color:#888;
+  font-size:12px;
+  margin-top:6px;
+}
+
+.rating{
+  color:#f5c518;
+  font-size:13px;
+  margin-top:7px;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:50px 10px;
+  display:none;
+}
+
+footer{
+  text-align:center;
+  color:#555;
+  font-size:12px;
+  padding:30px 10px;
+}
+
+@media(min-width:700px){
+  main{
+    max-width:1100px;
+    margin:auto;
+  }
+
+  .grid{
+    grid-template-columns:repeat(5,1fr);
+  }
+
+  header{
+    padding-left:calc((100% - 1100px)/2);
+    padding-right:calc((100% - 1100px)/2);
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header>
   <div class="top">
-    <div class="logo">🎬 我的影视库</div>
-    <div>⋯</div>
+    <div class="logo">🎬 <span>我的</span>影视库</div>
   </div>
-  <input id="search" class="search" placeholder="搜索电影、电视剧..." oninput="filterMovies()">
+
+  <input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="搜索电影、电视剧..."
+  >
+
+  <nav>
+    <button class="active" onclick="filterMovies('全部',this)">全部</button>
+    <button onclick="filterMovies('电影',this)">电影</button>
+    <button onclick="filterMovies('电视剧',this)">电视剧</button>
+    <button onclick="filterMovies('动画',this)">动画</button>
+  </nav>
 </header>
 
-<nav>
-  <button class="active" onclick="setCat('全部',this)">全部</button>
-  <button onclick="setCat('电影',this)">电影</button>
-  <button onclick="setCat('电视剧',this)">电视剧</button>
-  <button onclick="setCat('动画',this)">动画</button>
-</nav>
-
 <main>
-  <section class="hero">
-    <div>
-      <h1>欢迎来到我的影视库</h1>
-      <p>手机、平板、电脑均可访问</p>
-    </div>
-  </section>
 
+<section class="hero">
+  <small>WELCOME</small>
+  <h1>我的影视库</h1>
+  <p>
+    收藏你喜欢的电影和电视剧。<br>
+    支持搜索、分类和评分展示。
+  </p>
+</section>
+
+<div class="section-title">
   <h2>🔥 热门推荐</h2>
-  <div id="grid" class="grid"></div>
-  <div id="empty" class="empty">没有找到相关影视</div>
+  <span id="count"></span>
+</div>
+
+<div id="movieGrid" class="grid"></div>
+
+<div id="empty" class="empty">
+  没有找到相关影视内容
+</div>
+
 </main>
 
 <footer>
-  <div class="on"><span class="icon">⌂</span>首页</div>
-  <div><span class="icon">▣</span>电影</div>
-  <div><span class="icon">▤</span>电视剧</div>
-  <div><span class="icon">♡</span>收藏</div>
-  <div><span class="icon">⚙</span>设置</div>
+  我的影视库 · GitHub Pages
 </footer>
 
 <script>
-const movies=[
- {title:"星际探索",type:"电影",year:"2026",emoji:"🚀"},
- {title:"暗夜之城",type:"电视剧",year:"2026",emoji:"🌃"},
- {title:"最后的旅程",type:"电影",year:"2025",emoji:"🏔️"},
- {title:"未来世界",type:"动画",year:"2026",emoji:"🤖"},
- {title:"深海行动",type:"电影",year:"2025",emoji:"🌊"},
- {title:"时间边缘",type:"电视剧",year:"2026",emoji:"⏳"}
+
+const movies = [
+
+{
+ title:"阿凡达：水之道",
+ year:"2022",
+ type:"电影",
+ rating:"8.1",
+ poster:"https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
+},
+
+{
+ title:"复仇者联盟4：终局之战",
+ year:"2019",
+ type:"电影",
+ rating:"8.3",
+ poster:"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
+},
+
+{
+ title:"蜘蛛侠：英雄无归",
+ year:"2021",
+ type:"电影",
+ rating:"8.0",
+ poster:"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
+},
+
+{
+ title:"疾速追杀4",
+ year:"2023",
+ type:"电影",
+ rating:"8.0",
+ poster:"https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
+},
+
+{
+ title:"沙丘",
+ year:"2021",
+ type:"电影",
+ rating:"8.0",
+ poster:"https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg"
+},
+
+{
+ title:"怪奇物语",
+ year:"2016",
+ type:"电视剧",
+ rating:"8.6",
+ poster:"https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg"
+},
+
+{
+ title:"权力的游戏",
+ year:"2011",
+ type:"电视剧",
+ rating:"9.2",
+ poster:"https://image.tmdb.org/t/p/w500/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg"
+},
+
+{
+ title:"瑞克和莫蒂",
+ year:"2013",
+ type:"动画",
+ rating:"9.1",
+ poster:"https://image.tmdb.org/t/p/w500/WGRQ8FpjkDTzivQJ43t94bOuY0.jpg"
+}
+
 ];
-let category="全部";
+
+let currentType="全部";
 
 function render(){
- const q=document.getElementById("search").value.toLowerCase();
- const list=movies.filter(m=>
-   (category==="全部"||m.type===category)&&
-   m.title.toLowerCase().includes(q)
- );
- const grid=document.getElementById("grid");
- const empty=document.getElementById("empty");
- grid.innerHTML=list.map(m=>`
-   <div class="card">
-     <div class="poster">${m.emoji}</div>
-     <div class="info">
-       <div class="title">${m.title}</div>
-       <div class="meta">${m.year} · ${m.type}</div>
-       <button class="play" onclick="alert('播放器页面将在下一版接入')">▶ 播放</button>
-     </div>
-   </div>`).join("");
- empty.style.display=list.length?"none":"block";
+
+  const keyword=document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const list=movies.filter(movie=>{
+
+    const typeOK=
+      currentType==="全部" ||
+      movie.type===currentType;
+
+    const searchOK=
+      movie.title.toLowerCase().includes(keyword);
+
+    return typeOK && searchOK;
+  });
+
+  const grid=document.getElementById("movieGrid");
+  const empty=document.getElementById("empty");
+
+  grid.innerHTML="";
+
+  document.getElementById("count").textContent=
+    list.length+" 部";
+
+  if(list.length===0){
+    empty.style.display="block";
+    return;
+  }
+
+  empty.style.display="none";
+
+  list.forEach(movie=>{
+
+    const card=document.createElement("div");
+
+    card.className="card";
+
+    card.innerHTML=`
+      <img
+        class="poster"
+        src="${movie.poster}"
+        alt="${movie.title}"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      >
+
+      <div class="info">
+        <div class="title">${movie.title}</div>
+
+        <div class="meta">
+          ${movie.year} · ${movie.type}
+        </div>
+
+        <div class="rating">
+          ⭐ ${movie.rating}
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+
+  });
 }
-function setCat(c,btn){
- category=c;
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
- btn.classList.add("active");
- render();
+
+function filterMovies(type,button){
+
+  currentType=type;
+
+  document
+    .querySelectorAll("nav button")
+    .forEach(btn=>btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  render();
 }
-function filterMovies(){render()}
+
+document
+  .getElementById("search")
+  .addEventListener("input",render);
+
 render();
+
 </script>
+
 </body>
 </html>
